@@ -86,32 +86,37 @@ public class VoteAction extends Action {
         VersionManager versionManager = pollNode.getSession().getWorkspace().getVersionManager();
 
         // Check out poll node
-        if(!versionManager.isCheckedOut(pollNode.getPath()))
-            versionManager.checkout(pollNode.getPath());
+        try{
+        	if(!versionManager.isCheckedOut(pollNode.getPath()))
+        		versionManager.checkout(pollNode.getPath());
+
                         
-        // Update total of votes (poll node)
-        long totalOfVotes = pollNode.getProperty("totalOfVotes").getLong();
-        pollNode.setProperty("totalOfVotes", totalOfVotes+1);
+        	// Update total of votes (poll node)
+        	long totalOfVotes = pollNode.getProperty("totalOfVotes").getLong();
+        	pollNode.setProperty("totalOfVotes", totalOfVotes+1);
 
 
 
-        // Answer node management
-        // Get the answer node
-        JCRNodeWrapper answerNode = pollNode.getSession().getNodeByUUID(answerUUID);
-        // Check out answerNode
-        if(!versionManager.isCheckedOut(answerNode.getPath()))
-           versionManager.checkout(answerNode.getPath());
-        // Increment nb votes
-        long nbOfVotes = answerNode.getProperty("nbOfVotes").getLong();
-        answerNode.setProperty("nbOfVotes", nbOfVotes+1);
+        	// Answer node management
+        	// Get the answer node
+        	JCRNodeWrapper answerNode = pollNode.getSession().getNodeByUUID(answerUUID);
+        	// Check out answerNode
+        	if(!versionManager.isCheckedOut(answerNode.getPath()))
+        		versionManager.checkout(answerNode.getPath());
+        	// Increment nb votes
+        	long nbOfVotes = answerNode.getProperty("nbOfVotes").getLong();
+        	answerNode.setProperty("nbOfVotes", nbOfVotes+1);
 
-        // Save
-        pollNode.getSession().save();
-        // Check in
-        versionManager.checkin(pollNode.getPath());
-        // Check in poll node
-        versionManager.checkin(answerNode.getPath());
-
+        	// Save
+        	pollNode.getSession().save();
+        	// Check in
+        	versionManager.checkin(pollNode.getPath());
+        	// Check in poll node
+        	versionManager.checkin(answerNode.getPath());
+        }catch(Exception ex) {
+        	//Exception catched for special browser (Chrome, IE8)
+        	logger.debug("Vote", ex);
+        }
         return new ActionResult(HttpServletResponse.SC_OK, null, generateJSONObject(pollNode));
     }
 
