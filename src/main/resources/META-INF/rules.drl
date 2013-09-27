@@ -1,17 +1,15 @@
-###############################################################################
 package org.jahia.modules.poll.rules
 
-#list any import classes here.
+// list any import classes here.
 import org.jahia.services.content.rules.*
 import org.slf4j.Logger
 
 expander rules.dsl
 
-#declare any global variables here
+// declare any global variables here
 global User user
 global Service service
 global Logger logger
-###############################################################################
 
 rule "Change status for end date of poll"
     salience 25
