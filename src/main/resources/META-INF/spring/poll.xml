@@ -5,10 +5,12 @@
 
     <bean class="org.jahia.modules.poll.VoteAction">
         <property name="name" value="pollVote"/>
+        <property name="requireAuthenticatedUser" value="false"/> 
     </bean>
 
     <bean class="org.jahia.modules.poll.ResultsAction">
         <property name="name" value="pollResults"/>
+        <property name="requireAuthenticatedUser" value="false"/> 
     </bean>
 
     <bean id="endDatePollAction" class="org.jahia.modules.poll.EndDatePollAction">
