@@ -64,7 +64,7 @@
                 <input type="hidden" name="jcrReturnContentType" value="json"/>        
                 <template:list path="answers" listType="jnt:answersList" editable="true"/>
                 <div class="validation"></div>
-                <input class="button" type="button" value="<fmt:message key='jnt_poll.vote'/>" onclick="this.disabled = true;doVote($('${currentNode.identifier}_voteAnswer').value, '<c:url value="${url.base}${currentNode.path}"/>','${currentNode.identifier}', '<c:url value="${url.context}${url.base}${renderContext.site.path}"/>','${user.identifier}');" />
+                <input class="button" type="button" value="<fmt:message key='jnt_poll.vote'/>" onclick="this.disabled = true;doVote($('${currentNode.identifier}_voteAnswer').value, '<c:url value="${url.base}${currentNode.path}"/>','${currentNode.identifier}', '<c:url value="${url.base}${renderContext.site.path}"/>','${user.identifier}');" />
             </form>
 
           </div>
